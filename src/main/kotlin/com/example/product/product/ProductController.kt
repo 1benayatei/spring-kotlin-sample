@@ -17,17 +17,17 @@ class ProductController(private val productService: ProductService) {
 
     @PostMapping(API_PRODUCT_CREATE)
     @ResponseStatus(CREATED)
-    fun create(@Valid @RequestBody data: ProductCreationDto): ProductDto = ProductDto().of(productService.create(data.toProduct()));
+    fun create(@Valid @RequestBody data: ProductCreationDto): ProductDto = ProductDto().of(productService.create(data.toProduct()))
 
     @GetMapping(API_PRODUCT_GET)
     @ResponseStatus(OK)
-    fun get(@PathVariable id: Long): ProductDto = ProductDto().of(productService.findById(id));
+    fun get(@PathVariable id: Long): ProductDto = ProductDto().of(productService.findById(id))
 
     @PatchMapping(API_PRODUCT_UPDATE)
     @ResponseStatus(OK)
-    fun update(@PathVariable id: Long, @Valid @RequestBody data: ProductUpdateDto): ProductDto = ProductDto().of(productService.update(id, data.toProduct()));
+    fun update(@PathVariable id: Long, @Valid @RequestBody data: ProductUpdateDto): ProductDto = ProductDto().of(productService.update(id, data.toProduct()))
 
     @DeleteMapping(API_PRODUCT_DELETE)
     @ResponseStatus(NO_CONTENT)
-    fun delete(@PathVariable id: Long) = productService.delete(id);
+    fun delete(@PathVariable id: Long) = productService.delete(id)
 }
