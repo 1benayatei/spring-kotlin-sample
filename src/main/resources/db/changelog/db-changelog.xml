@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.5.xsd">
+
+    <changeSet id="1641382803106-1" author="bahman">
+        <createTable tableName="product">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="price" type="decimal(10,2)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="created_at" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp without time zone"/>
+        </createTable>
+        <createTable tableName="product_config">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints unique="true"/>
+            </column>
+            <column name="visible" type="boolean" defaultValue="false"/>
+            <column name="commentable" type="boolean" defaultValue="false"/>
+            <column name="votable" type="boolean" defaultValue="false"/>
+            <column name="commenter_role" type="character(6)" defaultValue="PUBLIC"/>
+            <column name="voter_role" type="character(6)" defaultValue="PUBLIC"/>
+            <column name="created_at" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp without time zone"/>
+        </createTable>
+        <createTable tableName="comment">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text" type="character varying(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="character varying(8)" defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp without time zone"/>
+        </createTable>
+        <createTable tableName="vote">
+            <column name="id" type="serial" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="score" type="smallint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp without time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp without time zone"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="vote" columnNames="product_id, user_id"/>
+
+        <addForeignKeyConstraint baseTableName="product_config"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_product_config_product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 validate="true"/>
+
+        <addForeignKeyConstraint baseTableName="comment"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_comment_product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 validate="true"/>
+
+        <addForeignKeyConstraint baseTableName="vote"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_vote_product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>
