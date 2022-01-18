@@ -18,7 +18,7 @@ data class Config(
     @GeneratedValue(strategy = IDENTITY)
     val id: Long = -1;
     var productId: Long = -1
-    val createdAt = LocalDateTime.now()
+    val createdAt: LocalDateTime = LocalDateTime.now()
     var updatedAt: LocalDateTime? = null
 
     @PreUpdate
