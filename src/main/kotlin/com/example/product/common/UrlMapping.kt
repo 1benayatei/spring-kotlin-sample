@@ -12,3 +12,7 @@ const val API_CONFIG = "$API_V1/configs";
 const val API_CONFIG_GET = "$API_CONFIG/{id}";
 const val API_CONFIG_CREATE = API_CONFIG;
 const val API_CONFIG_UPDATE = "$API_CONFIG/{id}";
+
+const val API_COMMENT = "$API_V1/comments";
+const val API_COMMENT_CREATE = API_COMMENT;
+const val API_COMMENT_UPDATE = "$API_COMMENT/{id}";

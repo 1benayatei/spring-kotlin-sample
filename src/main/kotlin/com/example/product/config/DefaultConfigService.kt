@@ -30,4 +30,10 @@ class DefaultConfigService(val configRepository: ConfigRepository, val productSe
             throw ConfigNotFoundException()
         };
     }
+
+    override fun findByProductId(productId: Long): Config {
+        return configRepository.findByProductId(productId).orElseThrow {
+            throw ConfigNotFoundException()
+        };
+    }
 }
