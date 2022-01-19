@@ -16,3 +16,6 @@ const val API_CONFIG_UPDATE = "$API_CONFIG/{id}";
 const val API_COMMENT = "$API_V1/comments";
 const val API_COMMENT_CREATE = API_COMMENT;
 const val API_COMMENT_UPDATE = "$API_COMMENT/{id}";
+
+const val API_VOTE = "$API_V1/votes";
+const val API_VOTE_CREATE = API_VOTE;
